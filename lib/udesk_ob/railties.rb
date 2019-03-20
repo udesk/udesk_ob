@@ -11,9 +11,8 @@ module UdeskOb
     end
 
     def call(env)
-      if env.has_key?(UdeskOb::Log::HTTP_HEADER)
-        UdeskOb::Log.trace_id = env[UdeskOb::Log::HTTP_HEADER]
-      end
+      header_name = "HTTP_#{UdeskOb::Log::HTTP_HEADER.tr('-', '_')}"
+      UdeskOb::Log.trace_id = env[header_name] if env.key?(header_name)
       @app.call(env)
     end
   end
