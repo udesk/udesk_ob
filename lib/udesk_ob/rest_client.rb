@@ -1,4 +1,5 @@
 module UdeskOb
+  # ensure trace_id set to http request header with gem rest-client
   module RestClientHeader
     def default_headers
       headers = super

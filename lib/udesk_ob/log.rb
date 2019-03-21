@@ -1,4 +1,5 @@
 module UdeskOb
+  # save log and maintain trace_id
   module Log
     HTTP_HEADER = 'X-UDESK-OB-TRACE-ID'.freeze
     SIDEKIQ_META = 'UDESK_OB_TRACE_ID'.freeze

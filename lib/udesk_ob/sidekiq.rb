@@ -1,5 +1,6 @@
 module UdeskOb
   module SidekiqMiddleware
+    # Set trace_id to sidekiq meta data
     class Client
       def call(_worker_class, job, _queue, _redis_pool)
         job[UdeskOb::Log::SIDEKIQ_META] = UdeskOb::Log.trace_id
@@ -7,12 +8,15 @@ module UdeskOb
       end
     end
 
+    # Get trace_id from sidekiq meta data
     class Server
       def call(_worker, job, _queue)
         if job[UdeskOb::Log::SIDEKIQ_META]
           UdeskOb::Log.trace_id = job[UdeskOb::Log::SIDEKIQ_META]
         end
         yield
+      ensure
+        UdeskOb::Log.trace_id = nil
       end
     end
   end
