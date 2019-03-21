@@ -5,13 +5,25 @@ module UdeskOb
     SIDEKIQ_META = 'UDESK_OB_TRACE_ID'.freeze
     THREAD_VAR = 'UDESK_OB_TRACE_ID'.freeze
 
-    def self.save(content)
-      message = {
-        trace_id: trace_id,
-        content: content
+    def self.save(task_id, node_id, content)
+      message = default_headers
+      message[:task_id] = task_id
+      message[:node_id] = node_id
+      message[:content] = content
+
+      transmit = UdeskOb::Transmit.instance
+      transmit.write(message.to_json)
+    end
+
+    def self.default_headers
+      config = UdeskOb::Config.instance
+
+      {
+        trace_id:   trace_id,
+        timestamp:  Time.now.to_s,
+        host_name:  config.host_name,
+        host_ip:    config.host_ip
       }
-      mq = UdeskOb::MessageQueue.instance
-      mq.publish(message.to_json)
     end
 
     def self.trace_id

@@ -1,5 +1,6 @@
 Gem::Specification.new do |s|
   files = Dir['lib/udesk_ob/*']
+  files += Dir['lib/udesk_ob/transmits/*']
   files << 'lib/udesk_ob.rb'
 
   s.name        = 'udesk_ob'
