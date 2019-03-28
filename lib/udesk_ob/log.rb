@@ -5,8 +5,25 @@ module UdeskOb
     SIDEKIQ_META = 'UDESK_OB_TRACE_ID'.freeze
     THREAD_VAR = 'UDESK_OB_TRACE_ID'.freeze
 
-    def self.save(task_id, node_id, content)
+    def self.info(task_id, node_id, content)
+      save(task_id, node_id, content, 'info')
+    end
+
+    def self.warn(task_id, node_id, content)
+      save(task_id, node_id, content, 'warn')
+    end
+
+    def self.error(task_id, node_id, content)
+      save(task_id, node_id, content, 'error')
+    end
+
+    def self.fatal(task_id, node_id, content)
+      save(task_id, node_id, content, 'fatal')
+    end
+
+    def self.save(task_id, node_id, content, level = 'info')
       message = default_headers
+      message[:level]   = level
       message[:task_id] = task_id
       message[:node_id] = node_id
       message[:content] = content

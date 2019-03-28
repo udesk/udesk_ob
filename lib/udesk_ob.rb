@@ -6,6 +6,7 @@ require 'socket'
 require 'redis'
 
 require 'udesk_ob/transmits/redis'
+require 'udesk_ob/transmits/logfile'
 require 'udesk_ob/config'
 require 'udesk_ob/log'
 require 'udesk_ob/transmit'

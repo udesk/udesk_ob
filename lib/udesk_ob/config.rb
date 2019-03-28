@@ -2,7 +2,7 @@ module UdeskOb
   # config
   class Config
     include Singleton
-    MODES = %i[redis].freeze
+    MODES = %i[redis logfile].freeze
 
     # mode: :redis
     # redis options: [:host, :port, :db, :channel]
