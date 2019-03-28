@@ -15,6 +15,10 @@ module UdeskOb
     def call(env)
       header_name = "HTTP_#{UdeskOb::Log::HTTP_HEADER.tr('-', '_')}"
       UdeskOb::Log.trace_id = env[header_name] if env.key?(header_name)
+      UdeskOb::Log.process_type = 'RailsAction'
+      if env.key?('action_dispatch.request_id')
+        UdeskOb::Log.process_id = env['action_dispatch.request_id']
+      end
       @app.call(env)
     ensure
       UdeskOb::Log.trace_id = nil

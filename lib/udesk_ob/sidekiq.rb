@@ -13,6 +13,8 @@ module UdeskOb
       def call(_worker, job, _queue)
         if job[UdeskOb::Log::SIDEKIQ_META]
           UdeskOb::Log.trace_id = job[UdeskOb::Log::SIDEKIQ_META]
+          UdeskOb::Log.process_type = 'Sidekiq'
+          UdeskOb::Log.process_id = job['jid']
         end
         yield
       ensure

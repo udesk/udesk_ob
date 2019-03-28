@@ -7,7 +7,7 @@ module UdeskOb
     # mode: :redis
     # redis options: [:host, :port, :db, :channel]
     # logfile options: [:path]
-    attr_accessor :mode, :options, :host_name, :host_ip
+    attr_accessor :mode, :options, :host_name, :host_ip, :project
 
     def initialize
       @host_name = Socket.gethostname
