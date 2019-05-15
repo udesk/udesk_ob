@@ -9,18 +9,30 @@ module UdeskOb
 
     def self.info(task_id, node_id, content)
       save(task_id, node_id, content, 'info')
+    rescue => e
+      print e.message
+      print e.backtrace.join("\n")
     end
 
     def self.warn(task_id, node_id, content)
       save(task_id, node_id, content, 'warn')
+    rescue => e
+      print e.message
+      print e.backtrace.join("\n")
     end
 
     def self.error(task_id, node_id, content)
       save(task_id, node_id, content, 'error')
+    rescue => e
+      print e.message
+      print e.backtrace.join("\n")
     end
 
     def self.fatal(task_id, node_id, content)
       save(task_id, node_id, content, 'fatal')
+    rescue => e
+      print e.message
+      print e.backtrace.join("\n")
     end
 
     def self.save(task_id, node_id, content, level = 'info')
